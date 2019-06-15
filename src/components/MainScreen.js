@@ -1,76 +1,113 @@
 import React, { Component } from 'react';
-import { Text, View, Image, ImageBackground } from 'react-native';
+import { Text, View, Image, ImageBackground, Dimensions, AppRegistry } from 'react-native';
 import { Dialog } from 'react-native-simple-dialogs';
 import Area from './Area'
 import Button from './Button'
+import testScreen from './testScreen';
 
 export default class MainScreen extends Component {
     render() {
-        return (
-          <View>
+      return (
+        <View>
 
-            <Area text = 'בית - ספר' 
-                  height = {70} 
-                  color = '#D3D3D3'
-            />
+          <Area text = 'בית - ספר' 
+                 height = '15%' 
+                 color = '#D3D3D3'
+                 fontSize = {30}
+          />
 
-            <Text style = {{fontSize: 20, textAlign: 'center', fontWeight: 'bold'}} height = {40}>שם התלמיד</Text>  
+          <Area text = 'שם התלמיד' 
+            height = '8%' 
+            color = '#FFFFFF'
+            fontSize = {20}
+          />
 
+          <View style = {{height: '50%', width: null}}>
             <ImageBackground
-              resizeMode = 'stretch'
-              style = {{height: 350, width: null, flexDirection: 'column', justifyContent: 'flex-end'}}
-              source = {require('./images/turquoiseboard.jpg')}>
-              <Text style = {{fontSize: 30, color: '#FFFFFF', marginRight: 135, marginBottom: 220}}>לוח מודעות</Text>
+              style = {{height: '100%', width: '100%'}}
+              source = {require('./images/turquoiseboard.jpg')}
+              resizeMode = 'stretch'>
+              <Text style = {{fontSize: 25, color: '#FFFFFF', textAlign: 'center', marginTop: '22%'}}>לוח מודעות</Text>
             </ImageBackground>
-            
-            <View style = {{marginTop: 6}}>
-              <View style = {styles.buttonsArea}>
-                <Button height = {100} width = {100} onPress = {this.onClick}/>
-                <Button height = {100} width = {100} onPress = {this.onClick}/>
-                <Button height = {100} width = {100} onPress = {this.onClick}/>
-              </View>
-              <View style = {styles.buttonsArea}>
-                <Button height = {100} width = {100} onPress = {this.onClick}/>
-                <Button height = {100} width = {100} onPress = {this.onClick}/>
-                <Button height = {100} width = {100} onPress = {this.onClick}/>
-              </View>
-            </View>
+          </View>
 
-          </View>    
+          <View style = {styles.buttonsArea}>
+            <View style = {styles.buttonsLine}>
+              <Button
+                onPress = {this.onClick}
+                imageUri = './images/parents-meeting.jpg'                 
+                height = "100%"
+                width = '100%'
+                text = 'אסיפת הורים'
+                fontSize = {12}
+              />
+              <Button
+                onPress = {this.onClick}
+                imageUri = './images/parents-meeting.jpg'                 
+                height = "100%"
+                width = '100%'
+                text = 'אסיפת הורים'
+                fontSize = {12}
+              />
+              <Button
+                onPress = {this.onClick}
+                imageUri = './images/parents-meeting.jpg'                 
+                height = "100%"
+                width = '100%'
+                text = 'אסיפת הורים'
+                fontSize = {12}
+              />
+            </View>
+            <View style = {styles.buttonsLine}>
+              <Button
+                onPress = {this.onClick}
+                imageUri = './images/parents-meeting.jpg'                 
+                height = "100%"
+                width = '100%'
+                text = 'אסיפת הורים'
+                fontSize = {12}
+              />
+              <Button
+                onPress = {this.onClick}
+                imageUri = './images/parents-meeting.jpg'                 
+                height = "100%"
+                width = '100%'
+                text = 'אסיפת הורים'
+                fontSize = {12}
+              />
+              <Button
+                onPress = {this.onClick}
+                imageUri = './images/parents-meeting.jpg'                 
+                height = "100%"
+                width = '100%'
+                text = 'אסיפת הורים'
+                fontSize = {12}
+              />
+            </View>          
+          </View>
+
+          
+        </View>    
         )
     }
 
     onClick () {
+      //AppRegistry.registerComponent('testScreen', () => testScreen);
       alert('                              אסיפת הורים !');
     }
 }
 
-//            <View height = {20}/>
-
-
-/*
-<Area text = 'לוח מודעות'
-                  height = {250}
-                  color = '#FFF8DC'
-            />
-*/
-
-/*
-            <Area text = 'School App' 
-                  height = {80} 
-                  color = '#FFF8DC'
-            >
-
-*/
-
-
 const styles = {
   buttonsArea: {
-    flexDirection: 'row', 
-    justifyContent: 'space-around', 
+    height: '27%',
     backgroundColor: '#D3D3D3',
-    //marginRight: 5,
-    //marginLeft: 5
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
+  buttonsLine: {
+    height: '50%',
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   }
 }
 
