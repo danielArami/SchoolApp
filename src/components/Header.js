@@ -2,34 +2,45 @@ import React from 'react'
 import {View, Text, Image} from 'react-native'
 
 const Header = (props) => {
+    const {
+        height,
+        backgroundColor,
+        rightText,
+        rightImagePath,
+        leftText,
+        leftImagePath,
+        secondaryText,
+        mainText
+    } = props;
+
     return (
         <View style = {{
-            height: props.height,
-            backgroundColor: "#D3D3D3",
+            height: height,
+            backgroundColor: backgroundColor,
         }}>
             <View style = {{height: '35%', width: '100%', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View>
-                <Text style = {{textAlign: 'left'}}>{'יציאה '}</Text>
+                <View style = {{hight: '100%', width: '8%'}}>
+                <Text style = {{textAlign: 'center', fontSize: 12}}>{leftText}</Text>
                 <Image
-                    style = {{height: '80%', width: '80%', alignSelf: 'center'}}
-                    source = {require('./images/exit2.png')}
+                    style = {{height: '100%', width: '100%', alignSelf: 'center'}}
+                    source = {leftImagePath}
                     resizeMode = 'stretch'>
                 </Image>
                 </View>
-                <View>
-                <Text style = {{textAlign: 'right'}}>{' שלום'}</Text>
+                <View style = {{hight: '100%', width: '8%'}}>
+                <Text style = {{textAlign: 'center', fontSize: 12}}>{rightText}</Text>
                 <Image
-                    style = {{height: '80%', width: '80%', alignSelf: 'center'}}
-                    source = {require('./images/user2.png')}
+                    style = {{height: '95%', width: '100%', alignSelf: 'center'}}
+                    source = {rightImagePath}
                     resizeMode = 'stretch'>
                 </Image>
                 </View>
             </View>
             <View style = {{height: '20%', width: '100%'}}>
-                <Text style = {{textAlign: 'center'}}>בית - ספר</Text>
+                <Text style = {{textAlign: 'center', fontSize: 15}}>{secondaryText}</Text>
             </View>
-            <View style = {{height: '45%', width: '100%', justifyContent: 'center'}}>
-                <Text style = {{textAlign: 'center', fontSize: 30, fontWeight: 'bold'}}>עין - גנים</Text>
+            <View style = {{height: '45%', width: '100%'}}>
+                <Text style = {{textAlign: 'center', fontSize: 25, fontWeight: 'bold'}}>{mainText}</Text>
             </View>
         </View>
     );

@@ -10,13 +10,20 @@ export default class MainScreen extends Component {
           
           <View style = {{height: '15%'}}>
             <Header
-              height = '100%' 
-              text = 'בית - ספר'              
+              height = '100%'
+              backgroundColor = '#D3D3D3'
+              rightText = ' שלום'
+              rightImagePath = {require('./images/user2.png')}
+              leftText = 'יציאה '
+              leftImagePath = {require('./images/exit.png')}
+              secondaryText = 'בית - ספר'
+              mainText = 'עין - גנים'
             />
           </View>
 
           <View style = {{height: '8%', color: '#FFFFFF', justifyContent: 'center'}}>
-            <Text style = {{fontSize: 20, textAlign: 'center'}}>דניאל ערמי</Text>
+            <Text style = {{fontSize: 20, textAlign: 'center', fontWeight: 'bold'}}>דניאל ערמי</Text>
+            <Text style = {{fontSize: 15, textAlign: 'center'}}>כיתה: ג'2</Text>
           </View>
         
           <View style = {{height: '50%', width: null}}>
