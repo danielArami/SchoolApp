@@ -6,6 +6,14 @@ import Button from './Button'
 import testScreen from './testScreen';
 
 export default class MainScreen extends Component {
+  
+  static navigationOptions = {
+    title: 'בית - ספר',
+    headerStyle: { backgroundColor: '#D3D3D3', height: 100},
+    headerTitleStyle: { color: 'black', fontSize: 30, textAlign: 'center' },
+    headerBackTitle: 'חזור'
+  }
+  
     render() {
       return (
         <View>
@@ -34,7 +42,7 @@ export default class MainScreen extends Component {
           <View style = {styles.buttonsArea}>
             <View style = {styles.buttonsLine}>
               <Button
-                onPress = {this.onClick}
+                onPress = {() => this.props.navigation.navigate('Test')}
                 imageUri = './images/parents-meeting.jpg'                 
                 height = "100%"
                 width = '100%'
