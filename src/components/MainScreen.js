@@ -1,35 +1,24 @@
 import React, { Component } from 'react';
-import { Text, View, Image, ImageBackground, Dimensions, AppRegistry } from 'react-native';
-import { Dialog } from 'react-native-simple-dialogs';
-import Area from './Area'
+import { Text, View, ImageBackground } from 'react-native';
+import Header from './Header'
 import Button from './Button'
-import testScreen from './testScreen';
 
-export default class MainScreen extends Component {
-  
-  static navigationOptions = {
-    title: 'בית - ספר',
-    headerStyle: { backgroundColor: '#D3D3D3', height: 100},
-    headerTitleStyle: { color: 'black', fontSize: 30, textAlign: 'center' },
-    headerBackTitle: 'חזור'
-  }
-  
+export default class MainScreen extends Component {  
     render() {
       return (
         <View>
+          
+          <View style = {{height: '15%'}}>
+            <Header
+              height = '100%' 
+              text = 'בית - ספר'              
+            />
+          </View>
 
-          <Area text = 'בית - ספר' 
-                 height = '15%' 
-                 color = '#D3D3D3'
-                 fontSize = {30}
-          />
-
-          <Area text = 'שם התלמיד' 
-            height = '8%' 
-            color = '#FFFFFF'
-            fontSize = {20}
-          />
-
+          <View style = {{height: '8%', color: '#FFFFFF', justifyContent: 'center'}}>
+            <Text style = {{fontSize: 20, textAlign: 'center'}}>דניאל ערמי</Text>
+          </View>
+        
           <View style = {{height: '50%', width: null}}>
             <ImageBackground
               style = {{height: '100%', width: '100%'}}
