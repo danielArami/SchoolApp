@@ -6,12 +6,15 @@ const Header = (props) => {
         height,
         width,
         backgroundColor,
-        rightText,
-        rightImagePath,
-        onPressRightButton,
         leftText,
         leftImagePath,
         onPressLeftButton,
+        middleText,
+        middleImagePath,
+        onPressMiddleButton,
+        rightText,
+        rightImagePath,
+        onPressRightButton,
         secondaryText,
         mainText
     } = props;
@@ -24,6 +27,14 @@ const Header = (props) => {
                     <Image
                         style = {{height: '70%', width: '100%', alignSelf: 'center'}}
                         source = {leftImagePath}
+                        resizeMode = 'stretch'>
+                    </Image>
+                </TouchableOpacity>
+                <TouchableOpacity style = {{hight: '100%', width: '8%'}} onPress = {onPressMiddleButton}>
+                    <Text style = {{height: '30%', textAlign: 'center', fontSize: 12}}>{middleText}</Text>
+                    <Image
+                        style = {{height: '70%', width: '100%', alignSelf: 'center'}}
+                        source = {middleImagePath}
                         resizeMode = 'stretch'>
                     </Image>
                 </TouchableOpacity>

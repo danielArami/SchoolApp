@@ -13,11 +13,14 @@ export default class MainScreen extends Component {
               height = '100%'
               width = '100%'
               backgroundColor = '#D3D3D3'
-              rightText = ' דניאל'
-              rightImagePath = {require('../images/user.png')}
               leftText = 'יציאה '
               leftImagePath = {require('../images/exit.png')}
               onPressLeftButton = {() => this.props.navigation.goBack()} //TODO --> EXIT
+              middleText = 'ראשי'
+              middleImagePath = {require('../images/home.png')}
+              onPressMiddleButton = {() => this.props.navigation.navigate('Main')}
+              rightText = ' דניאל'
+              rightImagePath = {require('../images/user.png')}
               secondaryText = 'בית - ספר'
               mainText = 'עין - גנים'
             />
