@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, ImageBackground } from 'react-native';
-import Header from './Header'
-import Button from './Button'
+import Header from '../components/Header'
+import Button from '../components/Button'
 
 export default class MainScreen extends Component {  
     render() {
@@ -11,35 +11,37 @@ export default class MainScreen extends Component {
           <View style = {{height: '15%'}}>
             <Header
               height = '100%'
+              width = '100%'
               backgroundColor = '#D3D3D3'
-              rightText = ' שלום'
-              rightImagePath = {require('./images/user2.png')}
+              rightText = ' דניאל'
+              rightImagePath = {require('../images/user.png')}
               leftText = 'יציאה '
-              leftImagePath = {require('./images/exit.png')}
+              leftImagePath = {require('../images/exit.png')}
+              onPressLeftButton = {() => this.props.navigation.goBack()} //TODO --> EXIT
               secondaryText = 'בית - ספר'
               mainText = 'עין - גנים'
             />
           </View>
 
           <View style = {{height: '8%', color: '#FFFFFF', justifyContent: 'center'}}>
-            <Text style = {{fontSize: 20, textAlign: 'center', fontWeight: 'bold'}}>דניאל ערמי</Text>
+            <Text style = {{fontSize: 22, textAlign: 'center'}}>דניאל ערמי</Text>
             <Text style = {{fontSize: 15, textAlign: 'center'}}>כיתה: ג'2</Text>
           </View>
         
           <View style = {{height: '50%', width: null}}>
             <ImageBackground
               style = {{height: '100%', width: '100%'}}
-              source = {require('./images/turquoiseboard.jpg')}
+              source = {require('../images/turquoiseboard.jpg')}
               resizeMode = 'stretch'>
-              <Text style = {{fontSize: 25, color: '#FFFFFF', textAlign: 'center', marginTop: '22%'}}>לוח מודעות</Text>
+              <Text style = {{fontSize: 23, color: '#FFFFFF', textAlign: 'center', marginTop: '22%'}}>לוח מודעות</Text>
             </ImageBackground>
           </View>
 
           <View style = {styles.buttonsArea}>
             <View style = {styles.buttonsLine}>
               <Button
-                onPress = {() => this.props.navigation.navigate('Test')}
-                imageUri = './images/parents-meeting.jpg'                 
+                onPress = {() => this.props.navigation.navigate('ParentsMeeting')}
+                imageUri = '../images/parents-meeting.jpg'                 
                 height = "100%"
                 width = '100%'
                 text = 'אסיפת הורים'
@@ -47,7 +49,7 @@ export default class MainScreen extends Component {
               />
               <Button
                 onPress = {this.onClick}
-                imageUri = './images/parents-meeting.jpg'                 
+                imageUri = '../images/parents-meeting.jpg'                 
                 height = "100%"
                 width = '100%'
                 text = 'אסיפת הורים'
@@ -55,7 +57,7 @@ export default class MainScreen extends Component {
               />
               <Button
                 onPress = {this.onClick}
-                imageUri = './images/parents-meeting.jpg'                 
+                imageUri = '../images/parents-meeting.jpg'                 
                 height = "100%"
                 width = '100%'
                 text = 'אסיפת הורים'
@@ -65,7 +67,7 @@ export default class MainScreen extends Component {
             <View style = {styles.buttonsLine}>
               <Button
                 onPress = {this.onClick}
-                imageUri = './images/parents-meeting.jpg'                 
+                imageUri = '../images/parents-meeting.jpg'                 
                 height = "100%"
                 width = '100%'
                 text = 'אסיפת הורים'
@@ -73,7 +75,7 @@ export default class MainScreen extends Component {
               />
               <Button
                 onPress = {this.onClick}
-                imageUri = './images/parents-meeting.jpg'                 
+                imageUri = '../images/parents-meeting.jpg'                 
                 height = "100%"
                 width = '100%'
                 text = 'אסיפת הורים'
@@ -81,7 +83,7 @@ export default class MainScreen extends Component {
               />
               <Button
                 onPress = {this.onClick}
-                imageUri = './images/parents-meeting.jpg'                 
+                imageUri = '../images/parents-meeting.jpg'                 
                 height = "100%"
                 width = '100%'
                 text = 'אסיפת הורים'

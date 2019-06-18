@@ -1,46 +1,46 @@
 import React from 'react'
-import {View, Text, Image} from 'react-native'
+import {View, Text, Image, TouchableOpacity} from 'react-native'
 
 const Header = (props) => {
     const {
         height,
+        width,
         backgroundColor,
         rightText,
         rightImagePath,
+        onPressRightButton,
         leftText,
         leftImagePath,
+        onPressLeftButton,
         secondaryText,
         mainText
     } = props;
 
     return (
-        <View style = {{
-            height: height,
-            backgroundColor: backgroundColor,
-        }}>
-            <View style = {{height: '35%', width: '100%', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <View style = {{hight: '100%', width: '8%'}}>
-                <Text style = {{textAlign: 'center', fontSize: 12}}>{leftText}</Text>
-                <Image
-                    style = {{height: '100%', width: '100%', alignSelf: 'center'}}
-                    source = {leftImagePath}
-                    resizeMode = 'stretch'>
-                </Image>
-                </View>
-                <View style = {{hight: '100%', width: '8%'}}>
-                <Text style = {{textAlign: 'center', fontSize: 12}}>{rightText}</Text>
-                <Image
-                    style = {{height: '95%', width: '100%', alignSelf: 'center'}}
-                    source = {rightImagePath}
-                    resizeMode = 'stretch'>
-                </Image>
-                </View>
+        <View style = {{ height: height, width: width, backgroundColor: backgroundColor}}>
+            <View style = {{height: '50%', width: '100%', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <TouchableOpacity style = {{height: '100%', width: '8%' }} onPress = {onPressLeftButton}>
+                    <Text style = {{height: '30%', textAlign: 'center', fontSize: 12}}>{leftText}</Text>
+                    <Image
+                        style = {{height: '70%', width: '100%', alignSelf: 'center'}}
+                        source = {leftImagePath}
+                        resizeMode = 'stretch'>
+                    </Image>
+                </TouchableOpacity>
+                <TouchableOpacity style = {{hight: '100%', width: '8%'}}>
+                    <Text style = {{height: '30%', textAlign: 'center', fontSize: 12}}>{rightText}</Text>
+                    <Image
+                        style = {{height: '65%', width: '100%', alignSelf: 'center'}}
+                        source = {rightImagePath}
+                        resizeMode = 'stretch'>
+                    </Image>
+                </TouchableOpacity>
             </View>
-            <View style = {{height: '20%', width: '100%'}}>
-                <Text style = {{textAlign: 'center', fontSize: 15}}>{secondaryText}</Text>
+            <View style = {{height: '15%', width: '100%', justifyContent: 'flex-start'}}>
+                <Text style = {{textAlign: 'center', fontSize: 14}}>{secondaryText}</Text>
             </View>
-            <View style = {{height: '45%', width: '100%'}}>
-                <Text style = {{textAlign: 'center', fontSize: 25, fontWeight: 'bold'}}>{mainText}</Text>
+            <View style = {{height: '35%', width: '100%', justifyContent: 'flex-start'}}>
+                <Text style = {{textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>{mainText}</Text>
             </View>
         </View>
     );

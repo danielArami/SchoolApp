@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {/*StyleSheet,*/ Text, View} from 'react-native';
 import { createStackNavigator, createAppContainer, createDrawerNavigator } from 'react-navigation'  
 
-import MainScreen from './src/components/MainScreen';
-import testScreen from './src/components/testScreen';
+import MainScreen from './src/screens/MainScreen';
+import ParentsMeeting from './src/screens/ParentsMeeting';
 
 export default class App extends Component {
   render() {
@@ -15,7 +15,7 @@ export default class App extends Component {
 
 const AppDrawerNavigator = createDrawerNavigator({
     Main: MainScreen,
-    Test: testScreen  
+    ParentsMeeting: ParentsMeeting  
 })
 
 const AppContainer = createAppContainer(AppDrawerNavigator);
