@@ -15,7 +15,7 @@ export default class ParentsMeeting extends Component {
               width = '100%'
               backgroundColor = '#D3D3D3'
               leftText = 'חזור '
-              leftImagePath = {require('../images/back12.png')}
+              leftImagePath = {require('../images/back.png')}
               onPressLeftButton = {() => this.props.navigation.goBack()}
               middleText = 'ראשי'
               middleImagePath = {require('../images/home.png')}

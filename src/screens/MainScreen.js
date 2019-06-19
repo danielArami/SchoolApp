@@ -18,7 +18,7 @@ export default class MainScreen extends Component {
               width = '100%'
               backgroundColor = '#D3D3D3'
               leftText = 'יציאה '
-              leftImagePath = {require('../images/logout2.png')}
+              leftImagePath = {require('../images/logout.png')}
               onPressLeftButton = {() => this.props.navigation.goBack()} //TODO --> EXIT
               middleText = 'ראשי'
               middleImagePath = {require('../images/home.png')}
