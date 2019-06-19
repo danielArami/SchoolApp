@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Text, View, ImageBackground } from 'react-native';
+
+import {I18nManager} from 'react-native'
+I18nManager.allowRTL(false)
+
 import Header from '../components/Header'
 import Button from '../components/Button'
 
@@ -14,7 +18,7 @@ export default class MainScreen extends Component {
               width = '100%'
               backgroundColor = '#D3D3D3'
               leftText = 'יציאה '
-              leftImagePath = {require('../images/exit.png')}
+              leftImagePath = {require('../images/logout2.png')}
               onPressLeftButton = {() => this.props.navigation.goBack()} //TODO --> EXIT
               middleText = 'ראשי'
               middleImagePath = {require('../images/home.png')}

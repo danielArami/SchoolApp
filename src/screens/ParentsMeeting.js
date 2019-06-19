@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import { View } from 'react-native'
 
+import {I18nManager} from 'react-native'
+I18nManager.allowRTL(false)
+
 import Header from '../components/Header'
 
 export default class ParentsMeeting extends Component {
@@ -12,7 +15,7 @@ export default class ParentsMeeting extends Component {
               width = '100%'
               backgroundColor = '#D3D3D3'
               leftText = 'חזור '
-              leftImagePath = {require('../images/back.png')}
+              leftImagePath = {require('../images/back12.png')}
               onPressLeftButton = {() => this.props.navigation.goBack()}
               middleText = 'ראשי'
               middleImagePath = {require('../images/home.png')}

@@ -21,27 +21,24 @@ const Header = (props) => {
 
     return (
         <View style = {{ height: height, width: width, backgroundColor: backgroundColor}}>
-            <View style = {{height: '50%', width: '100%', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <TouchableOpacity style = {{height: '100%', width: '8%' }} onPress = {onPressLeftButton}>
-                    <Text style = {{height: '30%', textAlign: 'center', fontSize: 12}}>{leftText}</Text>
+            <View style = {{height: '50%', width: '97%', alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <TouchableOpacity style = {{height: '80%', width: '10%', alignSelf: 'center' }} onPress = {onPressLeftButton}>
                     <Image
-                        style = {{height: '70%', width: '100%', alignSelf: 'center'}}
+                        style = {{height: '100%', width: '100%', alignSelf: 'center'}}
                         source = {leftImagePath}
                         resizeMode = 'stretch'>
                     </Image>
                 </TouchableOpacity>
-                <TouchableOpacity style = {{hight: '100%', width: '8%'}} onPress = {onPressMiddleButton}>
-                    <Text style = {{height: '30%', textAlign: 'center', fontSize: 12}}>{middleText}</Text>
+                <TouchableOpacity style = {{height: '80%', width: '10%', alignSelf: 'center'}} onPress = {onPressMiddleButton}>
                     <Image
-                        style = {{height: '70%', width: '100%', alignSelf: 'center'}}
+                        style = {{height: '100%', width: '100%', alignSelf: 'center'}}
                         source = {middleImagePath}
                         resizeMode = 'stretch'>
                     </Image>
                 </TouchableOpacity>
-                <TouchableOpacity style = {{hight: '100%', width: '8%'}}>
-                    <Text style = {{height: '30%', textAlign: 'center', fontSize: 12}}>{rightText}</Text>
+                <TouchableOpacity style = {{height: '80%', width: '10%', alignSelf: 'center'}}>
                     <Image
-                        style = {{height: '65%', width: '100%', alignSelf: 'center'}}
+                        style = {{height: '100%', width: '100%', alignSelf: 'center'}}
                         source = {rightImagePath}
                         resizeMode = 'stretch'>
                     </Image>
