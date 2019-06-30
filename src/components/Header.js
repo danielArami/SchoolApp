@@ -21,22 +21,22 @@ const Header = (props) => {
 
     return (
         <View style = {{ height: height, width: width, backgroundColor: backgroundColor}}>
-            <View style = {{height: '50%', width: '97%', alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between'}}>
-                <TouchableOpacity style = {{height: '80%', width: '10%', alignSelf: 'center' }} onPress = {onPressLeftButton}>
+            <View style = {{height: '40%', width: '98%', alignSelf: 'center', flexDirection: 'row', justifyContent: 'space-between'}}>
+                <TouchableOpacity style = {{height: '80%', width: '9%', alignSelf: 'center' }} onPress = {onPressLeftButton}>
                     <Image
                         style = {{height: '100%', width: '100%', alignSelf: 'center'}}
                         source = {leftImagePath}
                         resizeMode = 'stretch'>
                     </Image>
                 </TouchableOpacity>
-                <TouchableOpacity style = {{height: '80%', width: '10%', alignSelf: 'center'}} onPress = {onPressMiddleButton}>
+                <TouchableOpacity style = {{height: '80%', width: '9%', alignSelf: 'center'}} onPress = {onPressMiddleButton}>
                     <Image
                         style = {{height: '100%', width: '100%', alignSelf: 'center'}}
                         source = {middleImagePath}
                         resizeMode = 'stretch'>
                     </Image>
                 </TouchableOpacity>
-                <TouchableOpacity style = {{height: '80%', width: '10%', alignSelf: 'center'}}>
+                <TouchableOpacity style = {{height: '80%', width: '9%', alignSelf: 'center'}}>
                     <Image
                         style = {{height: '100%', width: '100%', alignSelf: 'center'}}
                         source = {rightImagePath}
@@ -44,10 +44,10 @@ const Header = (props) => {
                     </Image>
                 </TouchableOpacity>
             </View>
-            <View style = {{height: '15%', width: '100%', justifyContent: 'flex-start'}}>
+            <View style = {{height: '30%', width: '100%', justifyContent: 'flex-end'}}>
                 <Text style = {{textAlign: 'center', fontSize: 14}}>{secondaryText}</Text>
             </View>
-            <View style = {{height: '35%', width: '100%', justifyContent: 'flex-start'}}>
+            <View style = {{height: '20%', width: '100%', justifyContent: 'space-around'}}>
                 <Text style = {{textAlign: 'center', fontSize: 20, fontWeight: 'bold'}}>{mainText}</Text>
             </View>
         </View>

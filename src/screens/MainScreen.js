@@ -11,7 +11,7 @@ export default class MainScreen extends Component {
     render() {
       return (
         <View>
-          
+
           <View style = {{height: '15%'}}>
             <Header
               height = '100%'
@@ -47,50 +47,56 @@ export default class MainScreen extends Component {
           <View style = {styles.buttonsArea}>
             <View style = {styles.buttonsLine}>
               <Button
-                onPress = {() => this.props.navigation.navigate('ParentsMeeting')}
-                imageUri = '../images/parents-meeting.jpg'                 
+                onPress = {this.onClick}
+                imagePath = {require('../images/sign.png')}
+                resizeMode = 'contain'                 
                 height = "100%"
                 width = '100%'
-                text = 'אסיפת הורים'
+                text = 'אישורי הורים'
                 fontSize = {12}
               />
               <Button
                 onPress = {this.onClick}
-                imageUri = '../images/parents-meeting.jpg'                 
+                imagePath = {require('../images/sInfo.png')}
+                resizeMode = 'stretch'                                  
                 height = "100%"
                 width = '100%'
-                text = 'אסיפת הורים'
+                text = 'מידע לתלמיד'
                 fontSize = {12}
               />
               <Button
                 onPress = {this.onClick}
-                imageUri = '../images/parents-meeting.jpg'                 
+                imagePath = {require('../images/schedules.jpg')} 
+                resizeMode = 'stretch'                                 
                 height = "100%"
                 width = '100%'
-                text = 'אסיפת הורים'
+                text = 'מערכת שעות'
                 fontSize = {12}
               />
             </View>
             <View style = {styles.buttonsLine}>
               <Button
                 onPress = {this.onClick}
-                imageUri = '../images/parents-meeting.jpg'                 
+                imagePath = {require('../images/contact.png')}  
+                resizeMode = 'stretch'                                
                 height = "100%"
                 width = '100%'
-                text = 'אסיפת הורים'
+                text = 'מערכת פניות'
                 fontSize = {12}
               />
               <Button
                 onPress = {this.onClick}
-                imageUri = '../images/parents-meeting.jpg'                 
+                imagePath = {require('../images/gInfo.png')}  
+                resizeMode = 'contain'                                
                 height = "100%"
                 width = '100%'
-                text = 'אסיפת הורים'
+                text = 'מידע       כללי'
                 fontSize = {12}
               />
               <Button
-                onPress = {this.onClick}
-                imageUri = '../images/parents-meeting.jpg'                 
+                onPress = {() => this.props.navigation.navigate('ParentsMeeting')}
+                imagePath = {require('../images/parents-meeting.jpg')}  
+                resizeMode = 'stretch'                                
                 height = "100%"
                 width = '100%'
                 text = 'אסיפת הורים'
@@ -98,8 +104,6 @@ export default class MainScreen extends Component {
               />
             </View>          
           </View>
-
-          
         </View>    
         )
     }
