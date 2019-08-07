@@ -4,6 +4,7 @@ import { createStackNavigator, createAppContainer, createDrawerNavigator } from 
 
 import MainScreen from './src/screens/MainScreen';
 import ParentsMeeting from './src/screens/ParentsMeeting';
+import Login from './src/screens/Login';
 
 export default class App extends Component {
   render() {
@@ -15,6 +16,7 @@ export default class App extends Component {
 
 const AppDrawerNavigator = createDrawerNavigator({
     Main: MainScreen,
+    Login: Login,
     ParentsMeeting: ParentsMeeting  
 })
 
