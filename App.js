@@ -1,12 +1,28 @@
 import React, {Component} from 'react';
 import {/*StyleSheet,*/ Text, View} from 'react-native';
-import { createStackNavigator, createAppContainer, createDrawerNavigator } from 'react-navigation'  
+import { createStackNavigator, createAppContainer, createDrawerNavigator } from 'react-navigation';  
+
+import firebase from 'firebase';
 
 import MainScreen from './src/screens/MainScreen';
 import ParentsMeeting from './src/screens/ParentsMeeting';
 import Login from './src/screens/Login';
 
 export default class App extends Component {
+  componentWillMount() {
+    var firebaseConfig = {
+      apiKey: "AIzaSyAcvmeeWiSEGLk51tAk0lws1j_vwTKJLWs",
+      authDomain: "schoolapp-828b5.firebaseapp.com",
+      databaseURL: "https://schoolapp-828b5.firebaseio.com",
+      projectId: "schoolapp-828b5",
+      storageBucket: "",
+      messagingSenderId: "478079800299",
+      appId: "1:478079800299:web:df61f93a7a5a0360"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  }
+
   render() {
     return (
       <AppContainer/>
@@ -15,8 +31,8 @@ export default class App extends Component {
 }
 
 const AppDrawerNavigator = createDrawerNavigator({
-    Main: MainScreen,
     Login: Login,
+    Main: MainScreen,
     ParentsMeeting: ParentsMeeting  
 })
 

@@ -33,7 +33,7 @@ const Header = (props) => {
                         resizeMode = 'stretch'>
                     </Image>
                 </TouchableOpacity>
-                <TouchableOpacity style = {{height: '80%', width: '9%', alignSelf: 'center'}}>
+                <TouchableOpacity style = {{height: '80%', width: '9%', alignSelf: 'center'}} onPress = {onPressRightButton}>
                     <Image
                         style = {{height: '100%', width: '100%', alignSelf: 'center'}}
                         source = {rightImagePath}

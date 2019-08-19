@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import { Text, View, ImageBackground } from 'react-native';
+import firebase from 'firebase';
 
 import {I18nManager} from 'react-native'
 I18nManager.allowRTL(false)
 
 import Header from '../components/Header'
 import Button from '../components/Button'
+import Login from './Login'
 
 export default class MainScreen extends Component {  
     render() {
@@ -18,7 +20,7 @@ export default class MainScreen extends Component {
               width = '100%'
               backgroundColor = '#D3D3D3'
               leftImagePath = {require('../images/logout.png')}
-              onPressLeftButton = {() => this.props.navigation.goBack()} //TODO --> EXIT
+              onPressLeftButton = {this.onPressLoguot.bind(this)}
               middleImagePath = {require('../images/home.png')}
               onPressMiddleButton = {() => this.props.navigation.navigate('Main')}
               rightImagePath = {require('../images/user.png')}
@@ -103,6 +105,12 @@ export default class MainScreen extends Component {
           </View>
         </View>    
         )
+    }
+
+    onPressLoguot() {
+      console.log('loguot');
+      firebase.auth().signOut();
+      this.props.navigation.navigate('Login');
     }
 
     onClick () {
