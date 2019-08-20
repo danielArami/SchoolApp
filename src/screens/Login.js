@@ -22,6 +22,7 @@ export default class Login extends Component {
     firebase.auth().onAuthStateChanged((user) => {
       if(user) {
         console.log("if");
+        this.setState({ loggedIn: true });
         this.props.navigation.navigate('Main');
       }
       else {
@@ -59,9 +60,14 @@ export default class Login extends Component {
 
     renderContent() {
       if(this.state.loggedIn === null) {
-        return <Spinner/>
+        return (
+          <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
+            <Spinner/>
+          </View>
+        );
       }
-      else if(this.state.loggedIn === false) {
+      else {
+        console.log('logged in: ' + this.state.loggedIn);
         return this.renderLoginFields();
       }
     }
@@ -75,19 +81,19 @@ export default class Login extends Component {
 
             <View style = {{height: '10%'}}>
               <TextInput style = {styles.textInput}
-                value = {this.state.text}
                 onChangeText = {text => this.setState({ id: text, error: ''})}
                 autoCorrect = {false}
                 placeholder = {'תעודת זהות'}
+                value = {this.state.id}
               />
             </View>
             <View style = {{height: '10%'}}>
               <TextInput style = {styles.textInput}
-                value = {this.state.text}
                 onChangeText = {text => this.setState({ password: text, error: ''})}
                 autoCorrect = {false}
                 placeholder = {'סיסמא'}
                 secureTextEntry = {true}
+                value = {this.state.password}
               />
             </View>
 
@@ -113,9 +119,12 @@ export default class Login extends Component {
 
     onLogoutSuccess() {
       this.setState({
+        id: '',
+        password: '',
         headerColor: 'lightcoral', 
         headreText: 'התחבר למערכת',
         error: '',
+        loggedIn: false,
         loading: false
       });
     }
@@ -124,6 +133,7 @@ export default class Login extends Component {
       console.log("in login success");
 
       this.setState({
+        loggedIn: false,
         loading: false
       });
       console.log("in login success2");
@@ -132,6 +142,7 @@ export default class Login extends Component {
     onLoginFailed() {
       console.log("in login failed");
       this.setState({
+        loggedIn: false,
         loading: false,
         error: 'שגיאת התחברות - אחד מפרטי הזיהוי חסר או שגוי.'
       });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, ImageBackground } from 'react-native';
+import { Text, View, ImageBackground, BackHandler } from 'react-native';
 import firebase from 'firebase';
 
 import {I18nManager} from 'react-native'
@@ -105,6 +105,15 @@ export default class MainScreen extends Component {
           </View>
         </View>    
         )
+    }
+
+    componentDidMount() {
+      this.backHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+    }
+
+    handleBackPress = () => {
+      BackHandler.exitApp();
+      return true;
     }
 
     onPressLoguot() {

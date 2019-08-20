@@ -19,8 +19,11 @@ export default class App extends Component {
       messagingSenderId: "478079800299",
       appId: "1:478079800299:web:df61f93a7a5a0360"
     };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+
+    if (!firebase.apps.length) {
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    }
   }
 
   render() {
