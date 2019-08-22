@@ -4,9 +4,15 @@ import { createStackNavigator, createAppContainer, createDrawerNavigator } from 
 
 import firebase from 'firebase';
 
+import TeacherScreen from './src/screens/TeacherScreen';
 import MainScreen from './src/screens/MainScreen';
 import ParentsMeeting from './src/screens/ParentsMeeting';
 import Login from './src/screens/Login';
+import ClassManager from './src/screens/ClassManager';
+import StudentCard from './src/screens/StudentCard';
+import MyClasses from './src/screens/MyClasses';
+
+import Test from './src/screens/Test';
 
 export default class App extends Component {
   componentWillMount() {
@@ -34,9 +40,14 @@ export default class App extends Component {
 }
 
 const AppDrawerNavigator = createDrawerNavigator({
-    Login: Login,
-    Main: MainScreen,
-    ParentsMeeting: ParentsMeeting  
+  MyClasses: MyClasses,
+  StudentCard: StudentCard,
+  ClassManager: ClassManager,  
+  TeacherScreen: TeacherScreen,
+  Login: Login,
+  ParentScreen: MainScreen,
+  ParentsMeeting: ParentsMeeting,
+  Test: Test
 })
 
 const AppContainer = createAppContainer(AppDrawerNavigator);

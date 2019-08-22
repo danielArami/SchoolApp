@@ -8,7 +8,7 @@ I18nManager.allowRTL(false)
 import Header from '../components/Header'
 import Button from '../components/Button'
 
-export default class MainScreen extends Component {  
+export default class TeacherScreen extends Component {  
     render() {
       return (
         <View style = {{height: '100%', width: '100%'}}>
@@ -22,23 +22,22 @@ export default class MainScreen extends Component {
               onPressLeftButton = {this.onPressLoguot.bind(this)}
               middleImagePath = {require('../images/home.png')}
               onPressMiddleButton = {() => this.props.navigation.navigate('Main')}
-              rightImagePath = {require('../images/user.png')}
+              rightImagePath = {require('../images/professor.png')}
               secondaryText = 'בית - ספר'
               mainText = 'עין - גנים'
             />
           </View>
 
           <View style = {{height: '8%', color: '#FFFFFF', justifyContent: 'center'}}>
-            <Text style = {{fontSize: 22, textAlign: 'center'}}>דניאל ערמי</Text>
+            <Text style = {{fontSize: 22, textAlign: 'center'}}>מר דניאל ערמי</Text>
             <Text style = {{fontSize: 15, textAlign: 'center'}}>כיתה: ג'2</Text>
           </View>
         
           <View style = {{height: '50%', width: null}}>
             <ImageBackground
               style = {{height: '100%', width: '100%'}}
-              source = {require('../images/turquoiseboard.jpg')}
+              source = {require('../images/teacher-words.png')}
               resizeMode = 'stretch'>
-              <Text style = {{fontSize: 23, color: '#FFFFFF', textAlign: 'center', marginTop: '22%'}}>לוח מודעות</Text>
             </ImageBackground>
           </View>
 
@@ -54,12 +53,12 @@ export default class MainScreen extends Component {
                 fontSize = {12}
               />
               <Button
-                onPress = {this.onClick}
+                onPress = {() => this.props.navigation.navigate('ClassManager')}
                 imagePath = {require('../images/sInfo.png')}
                 resizeMode = 'stretch'                                  
                 height = "100%"
                 width = '100%'
-                text = 'מידע לתלמיד'
+                text = 'ניהול       כיתה'
                 fontSize = {12}
               />
               <Button
@@ -92,7 +91,7 @@ export default class MainScreen extends Component {
                 fontSize = {12}
               />
               <Button
-                onPress = {() => this.props.navigation.navigate('ParentsMeeting')}
+                onPress = {this.onClick}
                 imagePath = {require('../images/parents-meeting.jpg')}  
                 resizeMode = 'stretch'                                
                 height = "100%"
@@ -140,5 +139,3 @@ const styles = {
     justifyContent: 'space-around'
   }
 }
-
-

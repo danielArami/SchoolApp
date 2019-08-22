@@ -23,8 +23,15 @@ export default class Login extends Component {
       if(user) {
         console.log("if");
         this.setState({ loggedIn: true });
-        this.props.navigation.navigate('Main');
+
+        if(this.state.id === '000000') {
+          this.props.navigation.navigate('TeacherScreen');
+        }
+        else {
+          this.props.navigation.navigate('ParentScreen');
+        }
       }
+
       else {
         this.setState({ loggedIn: false, headerColor: 'lightcoral', headreText: 'התחבר למערכת' });
       }
@@ -47,7 +54,7 @@ export default class Login extends Component {
         <View style = {{height: '45%'}}>
           <ImageBackground
             style = {{height: '100%', width: '100%'}}
-            source = {require('../images/Talmid.png')}
+            source = {require('../images/Talmid2.png')}
             resizeMode = 'stretch'>
           </ImageBackground>
         </View>
