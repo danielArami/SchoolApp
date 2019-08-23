@@ -53,12 +53,12 @@ export default class TeacherScreen extends Component {
                 fontSize = {12}
               />
               <Button
-                onPress = {() => this.props.navigation.navigate('ClassManager')}
+                onPress = {() => this.props.navigation.navigate('MyClasses')}
                 imagePath = {require('../images/sInfo.png')}
                 resizeMode = 'stretch'                                  
                 height = "100%"
                 width = '100%'
-                text = 'ניהול       כיתה'
+                text = 'הכיתות       שלי'
                 fontSize = {12}
               />
               <Button

@@ -13,7 +13,7 @@ const ClassPresent = (props) => {
                 <Text style = {{fontSize: fontSize, fontWeight: 'bold', alignSelf: 'flex-start'}}>{className}</Text>
             </View>
             <Image style = {{height: '100%', width: '30%', justifyContent: 'center'}}
-                    source = {require('../images/classDoor2.jpg')}
+                    source = {require('../images/classDoor.png')}
                     resizeMode = 'stretch'>
             </Image>
         </View>                

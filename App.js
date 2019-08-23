@@ -11,6 +11,7 @@ import Login from './src/screens/Login';
 import ClassManager from './src/screens/ClassManager';
 import StudentCard from './src/screens/StudentCard';
 import MyClasses from './src/screens/MyClasses';
+import CreateClass from './src/screens/CreateClass';
 
 import Test from './src/screens/Test';
 
@@ -40,11 +41,12 @@ export default class App extends Component {
 }
 
 const AppDrawerNavigator = createDrawerNavigator({
+  Login: Login,
+  CreateClass: CreateClass,
   MyClasses: MyClasses,
   StudentCard: StudentCard,
   ClassManager: ClassManager,  
   TeacherScreen: TeacherScreen,
-  Login: Login,
   ParentScreen: MainScreen,
   ParentsMeeting: ParentsMeeting,
   Test: Test

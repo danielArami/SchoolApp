@@ -5,6 +5,7 @@ import axios from 'axios';
 import {I18nManager} from 'react-native'
 I18nManager.allowRTL(false)
 
+import firebase from 'firebase';
 import Header from '../components/Header'
 import ClassPresent from '../components/ClassPresent'
 
@@ -28,9 +29,9 @@ export default class MyClasses extends Component  {
                     />
                 </View>
 
-                <View style = {{height: '15%', width: '100%', flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'lavender'}}>
+                <View style = {{height: '13%', width: '100%', flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'lavender'}}>
                     <TouchableOpacity style = {{height: '90%', width: '20%', alignItems: 'center'}}
-                                      onPress = {this.addClass}>
+                                      onPress = {() => this.props.navigation.navigate('CreateClass')}>
                     <Image style = {{height: '80%', width: '80%'}}
                         source = {require('../images/addClass.jpg')}
                         resizeMode = 'stretch'>
@@ -122,18 +123,13 @@ export default class MyClasses extends Component  {
 
                 </View>
 
-                <View style = {{height: '10%', backgroundColor: '#D3D3D3'}}/>
+                <View style = {{height: '12%', backgroundColor: '#D3D3D3'}}/>
 
 
                 
             </View>
         );
-    }
-
-    addClass() {
-        alert('                              הוספת כיתה  !');
-    }
-    
+    }    
 }
 
 const styles = {
