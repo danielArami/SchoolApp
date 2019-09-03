@@ -15,7 +15,13 @@ import Spinner from '../components/Spinner';
 
 export default class CreateClass extends Component {
 
-    state = { city: '', schoolName: '', className: '', loading: false };
+    state = { city: '', 
+              schoolName: '', 
+              className: '', 
+              loading: false, 
+              message: '', 
+              messageColor: '' 
+    };
 
     render() {
         return (
@@ -35,11 +41,22 @@ export default class CreateClass extends Component {
                     />
                 </View>
 
-                <View style = {{height: '30%', justifyContent: 'center'}}>
-                    <Image style = {{height: '80%', width: '50%', alignSelf: 'center'}}
+                <View style = {{height: '25%', justifyContent: 'center'}}>
+                    <Image style = {{height: '80%', width: '40%', alignSelf: 'center'}}
                         source = {require('../images/classDoor.png')}
                         resizeMode = 'stretch'
                     />
+                </View>
+
+                <View style = {{height: '12%', width: '95%', flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center'}}>
+                    <TextInput style = {styles.textInput}
+                        onChangeText = {text => this.setState({ city: text, error: '' })}
+                        autoCorrect = {false}
+                        value = {this.state.city}
+                    />
+                    <View style = {{justifyContent: 'center'}}>
+                        <Text style = {{fontWeight: 'bold'}}>עיר:</Text>
+                    </View>                
                 </View>
 
                 <View style = {{height: '12%', width: '95%', flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center'}}>
@@ -64,22 +81,10 @@ export default class CreateClass extends Component {
                     </View>                
                 </View>
 
-                <View style = {{height: '12%', width: '95%', flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center'}}>
-                    <TextInput style = {styles.textInput}
-                        onChangeText = {text => this.setState({ city: text, error: '' })}
-                        autoCorrect = {false}
-                        value = {this.state.city}
-                    />
-                    <View style = {{justifyContent: 'center'}}>
-                        <Text style = {{fontWeight: 'bold'}}>עיר:</Text>
-                    </View>                
-                </View>
-
-                <View style = {{height: '20%', justifyContent: 'center'}}>
+                <View style = {{height: '20%', justifyContent: 'space-around'}}>
+                    <Text style = {{color: this.state.messageColor, alignSelf: 'center'}}>{this.state.message}</Text>
                     { this.renderButton() }
                 </View>   
-
-
 
             </View>
         );
@@ -94,21 +99,50 @@ export default class CreateClass extends Component {
         return (
           <TouchableOpacity style = {styles.buttonCreateClass}
             onPress = {this.onPressCreateClass.bind(this)}>
-              <Text style = {{fontSize: 20}}>צור כיתה</Text>
+              <Text style = {{fontSize: 20, fontWeight: 'bold'}}>צור כיתה</Text>
           </TouchableOpacity>     
         );
     }
   
     onPressCreateClass() {
-        this.setState({ loading: true });
-        const schoolName = this.state.schoolName;
-        const className = this.state.className;
-        const city = this.state.city;
-        const { currentUser } = firebase.auth();
-        firebase.database().ref(`/cities/${city}/schools/${schoolName}/teachers/${currentUser.uid}/classes/${className}`)
-        .set({ schoolName, className, city })
-        .then(this.onClassCreateSuccess.bid(this))
-        .catch(this.onClassCreateFailed.bid(this));
+        if (this.state.city === '' || this.state.schoolName === '' || this.state.className === '') {
+            this.setState({ messageColor: 'red', 
+                            message: 'יש למלא את כל השדות כדי להמשיך'
+            });
+        }
+        else {
+            this.setState({ loading: true });
+            const schoolName = this.state.schoolName;
+            const className = this.state.className;
+            const city = this.state.city;
+            const { currentUser } = firebase.auth();
+
+            firebase.database().ref(`/cities/${city}/schools/${schoolName}/teachers/`)
+            .set( currentUser.uid )
+            .catch(this.onCreateClassFailed.bind(this));
+            
+            firebase.database().ref(`/teachers/${currentUser.uid}/classes/`)
+            .push({ city, schoolName, className })
+            .then(this.onCreateClassSuccess.bind(this))
+            .catch(this.onCreateClassFailed.bind(this));
+
+        }
+    }
+
+    onCreateClassSuccess() {
+        this.setState({ 
+            loading: false,
+            messageColor: 'blue',
+            message: 'הכיתה נוצרה בהצלחה. חזור למסך הקודם או צור כיתה נוספת.'
+        });
+    }
+
+    onCreateClassFailed() {
+        this.setState({ 
+            loading: false,
+            messageColor: 'red',
+            message: 'אירעה שגיאה. אנא נסה שנית מאוחר יותר'
+        });
     }
 }
 
@@ -126,13 +160,13 @@ const styles = {
     },
     buttonCreateClass: {
         height: '30%', 
-        width: '70%', 
-        backgroundColor: 'cornflowerblue', 
+        width: '60%',
+        backgroundColor: 'darkseagreen',
         alignSelf: 'center', 
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderColor: 'black',
-        borderRadius: 2
+        borderRadius: 5
       }    
 }  

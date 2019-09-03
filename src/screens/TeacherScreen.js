@@ -8,7 +8,17 @@ I18nManager.allowRTL(false)
 import Header from '../components/Header'
 import Button from '../components/Button'
 
-export default class TeacherScreen extends Component {  
+export default class TeacherScreen extends Component {
+  
+  state = { classKey: '', classData: [] }
+
+  componentWillMount() {
+      this.setState({
+        classKey: this.props.navigation.state.params.classData[0],  
+        classData: this.props.navigation.state.params.classData[1]
+      })
+  }
+
     render() {
       return (
         <View style = {{height: '100%', width: '100%'}}>
@@ -24,13 +34,13 @@ export default class TeacherScreen extends Component {
               onPressMiddleButton = {() => this.props.navigation.navigate('Main')}
               rightImagePath = {require('../images/professor.png')}
               secondaryText = 'בית - ספר'
-              mainText = 'עין - גנים'
+              mainText = {this.state.classData.schoolName}
             />
           </View>
 
           <View style = {{height: '8%', color: '#FFFFFF', justifyContent: 'center'}}>
-            <Text style = {{fontSize: 22, textAlign: 'center'}}>מר דניאל ערמי</Text>
-            <Text style = {{fontSize: 15, textAlign: 'center'}}>כיתה: ג'2</Text>
+            <Text style = {{fontSize: 15, textAlign: 'center'}}>{`${this.state.classData.city}`}</Text>
+            <Text style = {{fontSize: 18, textAlign: 'center'}}>{`כיתה: ${this.state.classData.className}`}</Text>
           </View>
         
           <View style = {{height: '50%', width: null}}>
@@ -53,12 +63,18 @@ export default class TeacherScreen extends Component {
                 fontSize = {12}
               />
               <Button
-                onPress = {() => this.props.navigation.navigate('MyClasses')}
+                onPress = {() => this.props.navigation.navigate(
+                  'ClassManager', 
+                  { classData: this.props.navigation.state.params.classData,
+                    email: this.props.navigation.state.params.email,
+                    password: this.props.navigation.state.params.password,
+                  }
+                  )}
                 imagePath = {require('../images/sInfo.png')}
                 resizeMode = 'stretch'                                  
                 height = "100%"
                 width = '100%'
-                text = 'הכיתות       שלי'
+                text = 'ניהול       כיתה'
                 fontSize = {12}
               />
               <Button

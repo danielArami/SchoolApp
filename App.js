@@ -12,6 +12,7 @@ import ClassManager from './src/screens/ClassManager';
 import StudentCard from './src/screens/StudentCard';
 import MyClasses from './src/screens/MyClasses';
 import CreateClass from './src/screens/CreateClass';
+import AddStudentsFromFile from './src/screens/AddStudentsFromFile';
 
 import Test from './src/screens/Test';
 
@@ -31,6 +32,8 @@ export default class App extends Component {
       // Initialize Firebase
       firebase.initializeApp(firebaseConfig);
     }
+
+    console.disableYellowBox = true;  
   }
 
   render() {
@@ -42,11 +45,12 @@ export default class App extends Component {
 
 const AppDrawerNavigator = createDrawerNavigator({
   Login: Login,
-  CreateClass: CreateClass,
-  MyClasses: MyClasses,
-  StudentCard: StudentCard,
-  ClassManager: ClassManager,  
+  AddStudentsFromFile: AddStudentsFromFile,
   TeacherScreen: TeacherScreen,
+  StudentCard: StudentCard,
+  MyClasses: MyClasses,
+  CreateClass: CreateClass,
+  ClassManager: ClassManager,  
   ParentScreen: MainScreen,
   ParentsMeeting: ParentsMeeting,
   Test: Test

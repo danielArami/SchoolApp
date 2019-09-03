@@ -9,33 +9,48 @@ import firebase from 'firebase';
 import Header from '../components/Header'
 
 export default class Login extends Component {
-  state = { id: '', 
+  state = { id: '',
+            email: '', 
             password: '', 
             headerColor: '#D3D3D3', 
             headreText: 'ברוכים הבאים',
             error: '',
             loading: null,
             loggedIn: null
-          };
+  };
 
   componentDidMount() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user) {
-        console.log("if");
-        this.setState({ loggedIn: true });
+    console.log('in login did mount');
+    const { currentUser } = firebase.auth();
+    console.log(currentUser);
 
-        if(this.state.id === '000000') {
-          this.props.navigation.navigate('TeacherScreen');
-        }
-        else {
-          this.props.navigation.navigate('ParentScreen');
-        }
-      }
+    if(currentUser) {
+      console.log("if user: id = " + currentUser.email);
+      this.setState({ loggedIn: true });
+      this.navigateUser();
+    }
 
-      else {
-        this.setState({ loggedIn: false, headerColor: 'lightcoral', headreText: 'התחבר למערכת' });
-      }
-    })  
+    else {
+      this.setState({ loggedIn: false, headerColor: 'lightcoral', headreText: 'התחבר למערכת' 
+                      , id: '000000', password: '000000'
+      });
+    }
+
+
+ //   firebase.auth().onAuthStateChanged((user) => {
+ //   })  
+  }
+
+  navigateUser() {
+    console.log("in connect user");
+    const currentUser = firebase.auth().currentUser;
+
+    if(currentUser.email === '000000@mail.com') {
+      this.props.navigation.navigate('MyClasses', {email: this.state.email, password: this.state.password});
+    }
+    else {
+      this.props.navigation.navigate('ParentScreen', {email: this.state.email, password: this.state.password});
+    }
   }
 
   render() {
@@ -140,9 +155,10 @@ export default class Login extends Component {
       console.log("in login success");
 
       this.setState({
-        loggedIn: false,
+        loggedIn: true,
         loading: false
       });
+      this.navigateUser();
       console.log("in login success2");
     }
 
@@ -166,10 +182,7 @@ export default class Login extends Component {
       }
       else {
         const idToMail = this.state.id + '@mail.com';
-
-        console.log(idToMail);
-        console.log(this.state.password);  
-      
+        this.setState({ email: idToMail });  
         firebase.auth().signInWithEmailAndPassword(idToMail, this.state.password)
           .then(this.onLoginSuccess.bind(this))
           .catch(this.onLoginFailed.bind(this));

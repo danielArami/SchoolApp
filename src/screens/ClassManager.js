@@ -10,6 +10,15 @@ import ImageButton from '../components/ImageButton'
 
 export default class ClassManager extends Component  {
 
+    state = { classKey: '', classData: [] }
+
+    componentWillMount() {
+        this.setState({
+          classKey: this.props.navigation.state.params.classData[0],  
+          classData: this.props.navigation.state.params.classData[1]
+        })
+    }
+  
     render() {
         return (
             <View style = {{flex: 1}}>
@@ -19,11 +28,11 @@ export default class ClassManager extends Component  {
                         width = '100%'
                         backgroundColor = '#D3D3D3'
                         leftImagePath = {require('../images/back.png')}
-                        onPressLeftButton = {() => this.props.navigation.navigate('TeacherScreen')}
+                        onPressLeftButton = {() => this.props.navigation.navigate('MyClasses')}
                         middleImagePath = {require('../images/home.png')}
                         onPressMiddleButton = {() => this.props.navigation.navigate('TeacherScreen')}
                         rightImagePath = {require('../images/professor.png')}
-                        secondaryText = ''
+                        secondaryText = {`${this.state.classData.schoolName}, ${this.state.classData.className}`}
                         mainText = 'ניהול כיתה'
                     />
                 </View>
@@ -32,12 +41,24 @@ export default class ClassManager extends Component  {
                     <ImageButton
                         height = '100%'
                         width = '100%' 
-                        onPress = {() => this.props.navigation.navigate('StudentCard')}
+                        onPress = {() => this.props.navigation.navigate(
+                            'StudentCard',
+                            { classData: this.props.navigation.state.params.classData,
+                              email: this.props.navigation.state.params.email,
+                              password: this.props.navigation.state.params.password,
+                            }
+                        )}
                         imagePath = {require('../images/addStudent.png')}
                         resizeMode = 'stretch'
                         text = 'צרף לכיתה'
                         fontSize = {14}>
                     </ImageButton>
+                </View>
+
+                <View style = {{height: '10%'}}/>
+
+                <View style = {{height: '10%'}}>
+                    <Text style = {{fontSize: 20}}>{'ניהול כיתה'}</Text>
                 </View>
                 
             </View>
