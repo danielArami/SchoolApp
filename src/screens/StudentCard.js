@@ -68,7 +68,13 @@ export default class StudentCard extends Component {
 
                 <View style = {{height: '13%', width: '100%', flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'ivory'}}>
                     <TouchableOpacity style = {{height: '90%', width: '20%', justifyContent: 'space-between', alignItems: 'center'}}
-                                      onPress = {() => this.props.navigation.navigate('AddStudentsFromFile')}>
+                                      onPress = {() => this.props.navigation.navigate(
+                                          'AddStudentsFromFile',
+                                            { classData: this.props.navigation.state.params.classData,
+                                              email: this.props.navigation.state.params.email,
+                                              password: this.props.navigation.state.params.password,
+                                            }
+                                        )}>
                     <Image style = {{height: '70%', width: '75%'}}
                         source = {require('../images/fromFile.jpg')}
                         resizeMode = 'stretch'>

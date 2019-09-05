@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { View, Text, Button, TextInput, ScrollView, Image } from 'react-native'
-import axios from 'axios';
 
 import {I18nManager} from 'react-native'
 I18nManager.allowRTL(false)

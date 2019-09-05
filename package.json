@@ -7,17 +7,20 @@
     "test": "jest"
   },
   "dependencies": {
-    "axios": "^0.19.0",
-    "cors": "^2.8.5",
+    "csvtojson": "^2.0.10",
+    "fast-csv": "^3.4.0",
     "firebase": "^6.3.4",
+    "fs": "0.0.1-security",
+    "json2csv": "^4.5.2",
     "react": "16.8.3",
+    "react-csv-reader": "^1.3.1",
     "react-native": "^0.59.9",
+    "react-native-fs": "^2.14.1",
     "react-native-gesture-handler": "^1.3.0",
-    "react-native-material-dialog": "^0.7.6",
-    "react-native-popup-dialog": "^0.18.2",
-    "react-native-simple-dialogs": "^1.1.0",
     "react-native-vector-icons": "^6.5.0",
-    "react-navigation": "^3.11.0"
+    "react-navigation": "^3.11.0",
+    "react-xlsx-workbook": "0.0.5",
+    "xlsx": "^0.15.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
