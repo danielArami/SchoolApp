@@ -66,31 +66,21 @@ export default class StudentCard extends Component {
                     />
                 </View>
 
-                <View style = {{height: '13%', width: '100%', flexDirection: 'row', justifyContent: 'space-between', backgroundColor: 'ivory'}}>
-                    <TouchableOpacity style = {{height: '90%', width: '20%', justifyContent: 'space-between', alignItems: 'center'}}
+                <View style = {{height: '13%', width: '100%', flexDirection: 'row', justifyContent: 'center', backgroundColor: 'ivory'}}>
+                    <TouchableOpacity style = {{height: '90%', width: '20%', alignItems: 'center'}}
                                       onPress = {() => this.props.navigation.navigate(
-                                          'AddStudentsFromFile',
-                                            { classData: this.props.navigation.state.params.classData,
-                                              email: this.props.navigation.state.params.email,
-                                              password: this.props.navigation.state.params.password,
-                                            }
-                                        )}>
-                    <Image style = {{height: '70%', width: '75%'}}
+                                        'AddStudentsFromFile',
+                                          { classData: this.props.navigation.state.params.classData,
+                                            email: this.props.navigation.state.params.email,
+                                            password: this.props.navigation.state.params.password,
+                                          }
+                                      )}>
+                    <Image style = {{height: '80%', width: '80%'}}
                         source = {require('../images/fromFile.jpg')}
                         resizeMode = 'stretch'>
                     </Image>
-                    <Text style = {{fontSize: 14, fontWeight: 'bold'}}>מתוך קובץ</Text>
+                    <Text style = {{fontSize: 12, fontWeight: 'bold'}}>הוסף לכיתה</Text>
                     </TouchableOpacity>
-
-                    <View style = {{height: '90%', width: '20%', justifyContent: 'space-between', alignItems: 'center'}}>
-                    <View style = {{height: '80%', width: '80%', justifyContent: 'center'}}>
-                    <Image style = {{height: '80%', width: '80%'}}
-                        source = {require('../images/fillDetails.png')}
-                        resizeMode = 'stretch'>
-                    </Image>
-                    </View>
-                    <Text style = {{fontSize: 14, fontWeight: 'bold'}}>מלא פרטים</Text>
-                    </View>
                 </View>
                 
                 <View style = {{height: '12%', width: '95%', flexDirection: 'row', justifyContent: 'space-between', alignSelf: 'center'}}>
@@ -151,7 +141,7 @@ export default class StudentCard extends Component {
                     </View>                
                 </View>
 
-                <View style = {{height: '12%'}}>
+                <View style = {{height: '12%', backgroundColor: 'ivory'}}>
                 <Text style = {{color: this.state.messageColor, alignSelf: 'center'}}>{this.state.message}</Text>
                     { this.renderButton() }
                 </View>
@@ -223,8 +213,8 @@ export default class StudentCard extends Component {
         const firstName = this.state.firstName;
         const lastName = this.state.lastName;
 
-        firebase.database().ref(`/teachers/${teacherUid}/classes/${classKey}/students/`)
-        .push(id)
+        firebase.database().ref(`/teachers/${teacherUid}/classes/${classKey}/students/${id}/`)
+        .set({ firstName, lastName })
         .catch(this.onDataStoredFailed.bind(this));
         
         firebase.database().ref(`/students/${id}/`)

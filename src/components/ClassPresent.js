@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity} from 'react-native'
 
 const ClassPresent = (props) => {
 
-    const { height, width, schoolName, cityName, className, onClassPress, fontSize } = props;
+    const { height, width, image, schoolName, cityName, className, onClassPress, fontSize } = props;
              
     return (
         <TouchableOpacity onPress = {onClassPress}>
@@ -14,7 +14,7 @@ const ClassPresent = (props) => {
                 <Text style = {{fontSize: fontSize, fontWeight: 'bold', alignSelf: 'flex-start'}}>{className}</Text>
             </View>
             <Image style = {{height: '100%', width: '30%', justifyContent: 'center'}}
-                    source = {require('../images/classDoor.png')}
+                    source = {image}
                     resizeMode = 'stretch'>
             </Image>
         </View>

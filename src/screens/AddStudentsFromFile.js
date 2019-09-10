@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, Text, Button, TextInput, ScrollView, Image } from 'react-native'
+import { View, Text, Button, TextInput, ScrollView, Image, TouchableOpacity } from 'react-native'
 
 //import { csv } from 'd3';
 //import file from './file.csv';
@@ -16,7 +16,9 @@ import Header from '../components/Header'
 import ImageButton from '../components/ImageButton'
 import DataField from '../components/DataField'
 import ClassPresent from '../components/ClassPresent'
-import { stringLiteral } from '@babel/types'
+import Spinner from '../components/Spinner';
+import { isContinueStatement } from '@babel/types';
+
 
 //import readXlsxFile from 'read-excel-file/node'
 //import Workbook from 'react-xlsx-workbook'
@@ -25,16 +27,39 @@ import { stringLiteral } from '@babel/types'
 export default class AddStudentsFromFile extends Component {
 
     state = { 
-        students: [],
+        students: null,
         email: this.props.navigation.state.params.email,
         password: this.props.navigation.state.params.password,
         classKey: this.props.navigation.state.params.classData[0],  
-        classData: this.props.navigation.state.params.classData[1]
-    }
+        classData: this.props.navigation.state.params.classData[1],
+        filename: '',
+        message: '',
+        messageColor: '',
+        loading: false,
+        error: false,
 
+        dataFetched: false,
+        uploadStarted: false,
+        dataChecked: false,
+    }
+    
+    
+    initState() {
+        this.setState({
+            students: null,
+            loading: false,
+            error: false,
+    
+            dataFetched: false,
+            uploadStarted: false,
+            dataChecked: false,
+        });
+    }
+    
     render() {
         return (
             <View style = {{flex: 1}}>
+
                 <View style = {{height: '15%'}}>
                     <Header
                         height = '100%'
@@ -49,22 +74,237 @@ export default class AddStudentsFromFile extends Component {
                     />
                 </View>
 
-                <Button title = 'הוסף מקובץ'
-                        onPress = {this.addFromFile.bind(this)}>    
-                </Button>
+                <View style = {{height: '1%'}}/>
+                <Text style = {styles.text}>  במסך זה תוכל להוסיף תלמידים לכיתתך מתוך קובץ.</Text>
+                <View style = {{height: '1%'}}/>
 
-            
+                <Text style = {styles.text}>  לצורך כך, עליך ליצור מבעוד מועד קובץ בפורמט CSV בהתאם</Text>
+                <Text style = {styles.text}>  להנחיות בקישור להלן, ולמקם אותו בתיקיית האפליקציה.</Text>
+                <View style = {{height: '1%'}}/>
+
+                <TouchableOpacity onPress = {() => this.props.navigation.navigate('FileEdit')}>
+                    <Text style = {{fontSize: 14, color: 'blue'}}>  לחץ כאן למעבר להסבר על מבנה הקובץ</Text>
+                </TouchableOpacity>
+
+                <View style = {{height: '1%'}}/>
+
+                <Text style = {styles.text}>  עליך לשמור את הקובץ בזיכרון הטלפון הפנימי (internal),</Text>
+                <Text style = {styles.text}>  בתיקייה הייעודית לאפליקציית Talmid. אם הנך משתמש</Text>
+                <Text style = {styles.text}>  באפליקצייה CSV Editor לחץ על File -> Save As, ובמסך</Text>
+                <Text style = {styles.text}>  השמירה לחץ על HOME. כעת, נווט אל תיקיית האפליקצייה</Text>
+                <Text style = {styles.text}>  בנתיב הבא:  Android / data / com.talmid / files</Text>
+                <Text style = {styles.text}>  השאר את שאר ההגדרות כפי שהן, בחר שם לקובץ ולחץ OK.</Text>
+                <View style = {{height: '1%'}}/>
+
+                <Text style = {styles.text}>  לסיום, הזן מטה את שם הקובץ שיצרת, ולחץ על "צרף מקובץ".</Text>
+                <View style = {{height: '5%'}}/>
+
+                <View style = {{height: '10%', alignItems: 'center'}}>
+                    <View style = {{height: '100%', flexDirection: 'row'}}>
+                        <View style = {{justifyContent: 'center'}}>
+                            <Text style = {styles.text}>Android/data/com.talmid/files/ </Text>
+                        </View>
+                        <TextInput style = {styles.textInput}
+                            onChangeText = {text => this.setState({ filename: text, message: '' })}
+                            autoCorrect = {false}
+                            value = {this.state.filename}
+                        />
+                        <View style = {{justifyContent: 'center'}}>
+                            <Text style = {styles.text}> .csv</Text>
+                        </View>
+                    </View>
+                </View>
+
+                <View style = {{height: '10%', justifyContent: 'center'}}>
+                    <Text style = {{color: this.state.messageColor, textAlign: 'center'}}>{this.state.message}</Text>
+                </View>
+
+                <View style = {{height: '20%', alignItems: 'center'}}>
+                    {this.renderButton()}
+                </View>
+
             </View>
         );
     }
 
-    addFromFile() {
-        //this.setState({ loading: true });
-        //console.log(this.state.students[0]);
+    renderButton() {
+        if(this.state.loading) {
+            return (
+                <View style = {{flex: 1, flexDirection: 'column', justifyContent: 'center'}}>
+                    <Spinner/>
+                </View>
+            ); 
+        }
+        else {
+            return (
+                <TouchableOpacity style = {{height: '80%', width: '25%', 
+                                            justifyContent: 'space-between', alignItems: 'center', 
+                                            backgroundColor: 'lavenderblush', borderWidth: 0.5, 
+                                            borderColor: 'black', borderRadius: 10}}
+                                onPress = {this.readFile.bind(this)}>
+                    <Image style = {{height: '70%', width: '75%'}}
+                            source = {require('../images/fromFile.jpg')}
+                            resizeMode = 'stretch'>
+                    </Image>
+                    <Text style = {{fontSize: 14, fontWeight: 'bold'}}>צרף מקובץ</Text>
+                </TouchableOpacity>
+            )
+        }
+    }
 
-        for (const student of this.state.students) {
-            this.addStudent(student);   
-        }        
+    componentDidUpdate() {
+        console.log('componentDidUpdate');
+        if (this.state.students && !this.state.dataFetched) {           
+            console.log(this.state.students);
+            var dataIsCorrect = this.checkData();
+            if(dataIsCorrect) {
+                this.uploadData();
+            }    
+        }
+    }
+
+    uploadData() {
+        console.log('uploadData');
+        this.onUploadingData();
+                  
+        for (var i = 0; i < this.state.students.length; i++) {
+            var student = this.state.students[i];
+            console.log('in Uploading Data of student: ' + student.תז);
+            this.setState({ 
+                message: 'מעלה נתונים ... ' + '(' + (i+1) + '/' + this.state.students.length + ')' 
+            })
+            this.addStudent(student);        
+        }
+        
+        //if(!this.state.error) {
+            console.log('completed');
+            this.setState({ 
+                messageColor: 'green',
+                message: 'התהליך הושלם בהצלחה. נוספו ' + '(' + this.state.students.length + '/' + this.state.students.length + ')' + ' תלמידים.'
+            });
+            this.initState();
+        //}
+    }
+
+    checkData() {
+        this.onCheckingData();
+        var dataIsCorrect = true;
+
+        if(this.state.students.length === 0) {
+            this.onFileIsEmpty();
+            dataIsCorrect = false;
+        }
+        else {
+            for (var i = 0; i < this.state.students.length; i++) {
+                var student = this.state.students[i];
+ 
+                if(!student.תז || !student.שם || !student.משפחה) {
+                    this.onUnsupportedColumns();
+                    dataIsCorrect = false;
+                    break;
+                }
+                
+                else if(student.תז.length === 0 ||
+                    student.שם.length === 0 ||
+                    student.משפחה === 0 ||
+                    student.תז.length !== 9 ||
+                    !this.isID(student.תז)) {
+                        this.onDataIsMissing(i+2);
+                        dataIsCorrect = false;
+                        break;
+                }
+            }    
+        }
+
+        this.setState({ dataChecked: true });
+
+        return dataIsCorrect;
+    }
+
+    isID = (str) => {
+        var regX = new RegExp("([0-9])");
+        var isID = true;
+           
+        [...str].forEach(c => {
+            if(!regX.test(c)) {
+                isID = false; 
+            }
+        })
+        return isID;
+    }
+
+    onUnsupportedColumns() {
+        this.setState({
+            loading: false,
+            error: true,
+            dataChecked: true,
+            messageColor: 'red',
+            message: 'שורת הנתונים בראש הקובץ איננה כפי הנדרש. התהליך עצר.'
+        })
+    }
+
+    onCheckingData() {
+        this.setState({
+            loading: true,
+            messageColor: 'green',
+            message: 'בודק נתונים ...'
+        })
+    }
+
+    onDataIsMissing = (line) => {
+        this.setState({
+            loading: false,
+            error: true,
+            dataChecked: true,
+            messageColor: 'red',
+            message: 'נתונים חסרים או שגויים בשורה ' + line + ' בקובץ. ' + 'התהליך עצר.'
+        })
+    }
+
+    onFileIsEmpty() {
+        this.setState({
+            loading: false,
+            error: true,
+            dataChecked: true,
+            messageColor: 'red',
+            message: 'הקובץ ריק'
+        })
+    }
+
+    onFailedToReadFile() {
+        this.setState({
+            loading: false,
+            error: true,
+            messageColor: 'red',
+            message: 'אירעה שגיאה. הקובץ חסר או שאיננו בפורמט הנדרש.'
+        })
+    }
+
+    onReadFile() {
+        this.setState({ 
+            loading: true,
+            messageColor: 'green',
+            message: 'קורא קובץ ...' 
+        })         
+    }
+
+    noFileHasProvided() {
+        this.setState({
+            loading: false, 
+            error: true,
+            messageColor: 'red',
+            message: 'נא ציין את שם הקובץ שיצרת'
+        })
+    }
+
+    onUploadingData() {
+        this.setState({ 
+            loading: true,
+            dataFetched: true,
+            uploadStarted: true,
+            messageColor: 'green',
+            message: 'מעלה נתונים ... ' + '(0/' + this.state.students.length + ')'
+        });
     }
 
     addStudent = (student) => {
@@ -74,33 +314,24 @@ export default class AddStudentsFromFile extends Component {
         const phoneParentA = id; // TODO
         const idToMail = student.תז + '@mail.com';
 
-        console.log(id);
-        console.log(idToMail);
-        console.log(phoneParentA);
-
         firebase.auth().createUserWithEmailAndPassword(idToMail, phoneParentA)
-        .then(this.onCreateStudentSuccess(student))
-        .catch(this.onCreateStudentFailed(student));
-    }
-
-    onDataStoredSuccessfully() {
-        console.log('onDataStoredSuccessfully');
-        /*this.setState({ 
-            loading: false,
-            messageColor: 'blue',
-            message: 'התהליך הושלם בהצלחה, תוכל להוסיף תלמידים נוספים.'
-        });*/
-
-        console.log('done');
+        .then(this.SignInBack(student))
+        .catch((error) => { 
+            console.log(error)
+            /*if(error.code === "auth/email-already-in-use") {
+                console.log('EQUAL');
+            }*/
+        });
     }
 
     onDataStoredFailed() {
         console.log('onDataStoredFailed');
-        /*this.setState({ 
+        this.setState({ 
             loading: false,
+            error: true,
             messageColor: 'red',
-            message: 'התלמיד נוסף בהצלחה, אך לא נשמרו נתונים'
-        });*/        
+            message: 'אירעה שגיאה בהעלאת חלק מהנתונים, אנא עדכן ידנית מאוחר יותר'
+        });        
     }
 
     StoreStudentData = (student) => {
@@ -112,85 +343,89 @@ export default class AddStudentsFromFile extends Component {
         const firstName = student.שם;
         const lastName = student.משפחה;
 
-        firebase.database().ref(`/teachers/${teacherUid}/classes/${classKey}/students/`)
-        .push(id)
+        //if(this.studentAlreadyInClass(student.תז)) {
+        //    console.log('studentAlreadyInClass');
+        //}
+
+        firebase.database().ref(`/teachers/${teacherUid}/classes/${classKey}/students/${id}/`)
+        .set({ firstName, lastName })
         .catch(this.onDataStoredFailed.bind(this));
         
         firebase.database().ref(`/students/${id}/`)
         .set({ firstName, lastName })
-        .then(this.onDataStoredSuccessfully.bind(this))
+        .then(console.log('DataStoredSuccessfully'))
+        .catch(this.onDataStoredFailed.bind(this));
+        
+        firebase.database().ref(`/students/${id}/teacher`)
+        .set(teacherUid)
+        .then(console.log('StudentTeacherStoredSuccessfully'))
         .catch(this.onDataStoredFailed.bind(this));        
     }
 
-    onSignInBackSuccess = (student) => {
-        console.log('onSignInBackSuccess');
-        //console.log('after adding user current Uid is: ' + firebase.auth().currentUser.uid);
-        //this.setState({ 
-        //    messageColor: 'blue',
-        //    message: 'התלמיד נוסף לכיתה בהצלחה. מעלה נתונים...'
-        //});
+    /*
+    studentAlreadyInClass = (studentID) => {
+        const teacherUid = firebase.auth().currentUser.uid;
+        const classKey = this.state.classKey;
+        var studentAlreadyInClass = false;
+        var jsonData = null;
+        var arrData = [];
 
-        //console.log('before storeStudentData');
-        this.StoreStudentData(student);
-        //console.log('after storeStudentData');
+        firebase.database().ref(`/teachers/${teacherUid}/classes/${classKey}/students/`) 
+        .once('value', snapshot => {
+            jsonData = snapshot.val();
+            arrData = Object.keys(jsonData).map((key) => [key, jsonData[key]]);
+            //console.log(arrData);
+        })
+        .catch(); //TODO
+
+        console.log('before iteration');
+        for(var i = 0; i < arrData.length; i++) {
+            console.log(arrData[i]);
+        }
+        
+        console.log(studentAlreadyInClass);
+        return studentAlreadyInClass;
     }
+    */
 
     SignInBack = (student) => {
         console.log('onSignInBack');
 
         firebase.auth().signOut();
         firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-        .then(this.onSignInBackSuccess(student));
-        //.catch(this.onSignInBackFailed.bind(this));
+        .then(this.StoreStudentData(student))
+        .catch((error) => { console.log(error) }); // MAYBE TO HANDLE !
     }
 
-    onCreateStudentSuccess = (student) => {
-        console.log('Student id: ' + student.תז + ' added successfully');
-        /*this.setState({ 
-            messageColor: 'blue',
-            message: 'התלמיד נוסף לכיתה בהצלחה. מעלה נתונים...'
-        });*/
-
-        this.SignInBack(student);
+    onSignInBackFailed() {
+        console.log('onSignInBackFailed');
     }
 
     onCreateStudentFailed = (student) => {
         console.log('Failed to add student id: ' + student.תז);
         /*this.setState({ 
             loading: false,
+            error: true,
             messageColor: 'red',
-            message: '.אירעה שגיאה. המשתמש קיים כבר או שהסיסמא קצרה מדיי'
+            message: `אירעה שגיאה בעת הוספת התלמיד ${student.שם} ${student.משפחה}, התהליך עצר.`
         });*/
     }
 
+    readFile() {
+        if(this.state.filename === '') {
+            this.noFileHasProvided();
+            return;
+        }
 
-    
-
-    componentWillMount() {
-        this.onPressReadFile();
-    }
-
-    componentDidUpdate() {
-        //console.log(this.state.students);
-    }
-
-    onPressReadFile() {
-        console.log('onPressReadFile');
+        this.onReadFile(); // UI
 
         var RNFS = require('react-native-fs');
-        var path = RNFS.DocumentDirectoryPath + '/studentsCSV.csv';
- 
-        RNFS.exists(path).then(res => {
-            console.log(res);
-        });
-        
+        //var path = RNFS.DocumentDirectoryPath + '/test.csv';
+        var path = RNFS.ExternalDirectoryPath + '/' + this.state.filename + '.csv';
         const csvToJson = require('csvtojson');
-        //const jsonToCsv = require('json2csv');
-
         var regX = new RegExp("([0-9A-Za-z])");
-
-        
-        RNFS.readFile(path, 'ascii').then(res => {
+           
+        RNFS.readFile(path).then(res => {
             var heb = '';
             [...res].forEach(c => {
                 if(!regX.test(c) && c.toUpperCase() != c.toLowerCase()) {
@@ -201,16 +436,34 @@ export default class AddStudentsFromFile extends Component {
                     heb += c;
                 }
             });
+            console.log(heb);       
             csvToJson().fromString(heb).then(jsonData => {
                 this.setState({ students: jsonData });
             })
         })
         .catch(err => {
+            console.log('failed to read file (catch)');
             console.log(err.message, err.code);
-        });
-
+            this.onFailedToReadFile();
+        });       
     }
+}
 
+const styles = {
+    text: {
+        fontSize: 13
+    },
+    textInput: {
+        fontSize: 13,
+        height: '100%',
+        width: '35%',
+        //justifyContent: 'center',
+        //alignSelf: 'center',
+        borderWidth: 0.5,
+        borderColor: 'black',
+        backgroundColor: 'aliceblue',
+        borderRadius: 1
+    },
 }
 
         /* 

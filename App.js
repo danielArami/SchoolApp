@@ -13,6 +13,8 @@ import StudentCard from './src/screens/StudentCard';
 import MyClasses from './src/screens/MyClasses';
 import CreateClass from './src/screens/CreateClass';
 import AddStudentsFromFile from './src/screens/AddStudentsFromFile';
+import FileEdit from './src/screens/FileEdit';
+import ParentsMeetingTeacher from './src/screens/ParentsMeetingTeacher';
 
 import Test from './src/screens/Test';
 
@@ -44,8 +46,10 @@ export default class App extends Component {
 }
 
 const AppDrawerNavigator = createDrawerNavigator({
+  ParentsMeetingTeacher: ParentsMeetingTeacher,
   Login: Login,
   AddStudentsFromFile: AddStudentsFromFile,
+  FileEdit: FileEdit,
   TeacherScreen: TeacherScreen,
   StudentCard: StudentCard,
   MyClasses: MyClasses,

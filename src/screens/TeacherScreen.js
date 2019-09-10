@@ -28,8 +28,8 @@ export default class TeacherScreen extends Component {
               height = '100%'
               width = '100%'
               backgroundColor = '#D3D3D3'
-              leftImagePath = {require('../images/logout.png')}
-              onPressLeftButton = {this.onPressLoguot.bind(this)}
+              leftImagePath = {require('../images/back.png')}
+              onPressLeftButton = {() => this.props.navigation.navigate('MyClasses')}
               middleImagePath = {require('../images/home.png')}
               onPressMiddleButton = {() => this.props.navigation.navigate('Main')}
               rightImagePath = {require('../images/professor.png')}
@@ -69,7 +69,7 @@ export default class TeacherScreen extends Component {
                     email: this.props.navigation.state.params.email,
                     password: this.props.navigation.state.params.password,
                   }
-                  )}
+                )}
                 imagePath = {require('../images/sInfo.png')}
                 resizeMode = 'stretch'                                  
                 height = "100%"
@@ -107,7 +107,13 @@ export default class TeacherScreen extends Component {
                 fontSize = {12}
               />
               <Button
-                onPress = {this.onClick}
+                onPress = {() => this.props.navigation.navigate(
+                  'ParentsMeetingTeacher', 
+                  { classData: this.props.navigation.state.params.classData,
+                    email: this.props.navigation.state.params.email,
+                    password: this.props.navigation.state.params.password,
+                  }
+                )}                
                 imagePath = {require('../images/parents-meeting.jpg')}  
                 resizeMode = 'stretch'                                
                 height = "100%"

@@ -14,12 +14,13 @@ import Spinner from '../components/Spinner';
 
 export default class CreateClass extends Component {
 
-    state = { city: '', 
-              schoolName: '', 
-              className: '', 
-              loading: false, 
-              message: '', 
-              messageColor: '' 
+    state = { 
+        city: '', 
+        schoolName: '', 
+        className: '', 
+        loading: false, 
+        message: '', 
+        messageColor: '' 
     };
 
     render() {
@@ -116,9 +117,9 @@ export default class CreateClass extends Component {
             const city = this.state.city;
             const { currentUser } = firebase.auth();
 
-            firebase.database().ref(`/cities/${city}/schools/${schoolName}/teachers/`)
-            .set( currentUser.uid )
-            .catch(this.onCreateClassFailed.bind(this));
+            //firebase.database().ref(`/cities/${city}/schools/${schoolName}/teachers/`)
+            //.set( currentUser.uid )
+            //.catch(this.onCreateClassFailed.bind(this));
             
             firebase.database().ref(`/teachers/${currentUser.uid}/classes/`)
             .push({ city, schoolName, className })
