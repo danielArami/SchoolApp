@@ -20,7 +20,7 @@
     "react-native-vector-icons": "^6.5.0",
     "react-navigation": "^3.11.0",
     "react-xlsx-workbook": "0.0.5",
-    "xlsx": "^0.15.1"
+    "xlsx": "^0.17.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
